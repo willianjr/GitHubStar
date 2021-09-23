@@ -8,7 +8,7 @@ declare interface LayoutProps {
 
 const Layout = ({ icon, number }: LayoutProps): JSX.Element => {
     return (
-        <S.Containers>
+        <S.Containers md={3} sm={6} xs={3}>
             <div>
                 {icon}
                 {number}

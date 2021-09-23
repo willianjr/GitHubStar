@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../assets/imgs/logoGitStar.svg'
 import Row from 'react-bootstrap/Row'
-import { Statistic } from '../index'
+import { Statistic, Repositories } from '../index'
 
 import * as S from './styled'
 
@@ -26,7 +26,7 @@ const Profile = () => {
                         <S.Logo src={logo} />
                         <S.Avatar />
                         <S.Name>Fula de tal</S.Name>
-                        <S.Statistics className={`gx-1`}>
+                        <S.Statistics className={`g-1`}>
                             <Statistic number={2} icon={<FontAwesomeIcon icon={faUserTag} />} />
                             <Statistic number={1} icon={<FontAwesomeIcon icon={faUsers} />} />
                             <Statistic number={0} icon={<FontAwesomeIcon icon={faCode} />} />
@@ -50,7 +50,9 @@ const Profile = () => {
                         </S.Email>
                     </S.Perfil>
                 </S.ColunaLateral>
-                <S.Coluna />
+                <S.Coluna>
+                    <Repositories />
+                </S.Coluna>
             </Row>
         </>
     )
