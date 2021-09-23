@@ -6,7 +6,7 @@ declare interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
-    return <S.Containers fluid>{children}</S.Containers>
+    return <S.Containers>{children}</S.Containers>
 }
 
 export default Layout
