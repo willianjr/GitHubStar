@@ -21,6 +21,7 @@ import { useGitHub } from '../../contexts/githubContext'
 
 const Profile = (): JSX.Element => {
     const { loading, user, clearSearch } = useGitHub()
+
     return (
         <>
             <GlobalStyle bg={1} />
