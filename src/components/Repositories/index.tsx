@@ -1,39 +1,28 @@
-import React, { ReactNode } from 'react'
-import Container from 'react-bootstrap/Container'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLink } from '@fortawesome/free-solid-svg-icons'
+import React from 'react'
+import { useGitHub } from '../../contexts/githubContext'
 import { Repositorie } from '../index'
 import * as S from './styled'
-
-declare interface Props {
-    nome: string
-    link: string
-}
+import { RepositoresProps, NodesProps } from '../../services/queries'
 
 const Repositories = (): JSX.Element => {
+    const { getRepositoriesStarred } = useGitHub()
+    const repositories = getRepositoriesStarred()
+    const repositoriesList: NodesProps[] = repositories ? Object.values(repositories?.nodes) : []
+
     return (
         <>
-            <S.Retorno>Foram encontratos 12 repositórios</S.Retorno>
+            <S.Retorno>Foram encontratos {repositories?.totalCount} repositórios favoritados.</S.Retorno>
             <S.Containers className={`g-4`}>
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
-                <Repositorie nome={`Teste`} link={`http://www.github.com/wrjrsistema`} />
+                {repositoriesList.map((repositorie) => (
+                    <Repositorie
+                        id={repositorie.id}
+                        key={repositorie.id}
+                        name={repositorie.name}
+                        description={repositorie.description}
+                        link={repositorie.url}
+                        owner={repositorie.owner?.login}
+                    />
+                ))}
             </S.Containers>
         </>
     )

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Containers = styled.div`
-    background-color: ${({ theme: { colors } }) => colors.overlay};
+    background: ${({ theme: { colors } }) => colors.overlay};
     height: 100vh;
     width: 100vw;
     position: fixed;
@@ -12,6 +12,7 @@ export const Containers = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 999999;
 
     > span {
         color: ${({ theme: { colors } }) => colors.text};

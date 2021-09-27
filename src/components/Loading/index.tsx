@@ -5,7 +5,7 @@ import animationData from '../../assets/imgs/loadingGit1.json'
 
 import * as S from './styled'
 
-const Loading = () => {
+const Loading = (): JSX.Element => {
     const defaultOptions = {
         loop: true,
         autoplay: true,

@@ -5,29 +5,47 @@ import Button from 'react-bootstrap/Button'
 
 export const Containers = styled(Col)`
     position: relative;
+    display: flex;
+    align-items: stretch;
 `
 export const Cards = styled(Card)`
     background-color: ${({ theme: { colors } }) => colors.dourado_semi};
-    padding: 1.5rem 1rem;
+    padding: 0.5rem 1rem;
     border: none;
-`
-export const Nome = styled.h4`
-    text-align: center;
-    font-size: 24px;
+    align-items: flex-stretch;
+    width: 100%;
 `
 export const Buttons = styled(Button)`
     position: absolute;
     z-index: 99999;
-    right: 1rem;
-    top: 0.5rem;
+    left: 1rem;
+    top: 0.2rem;
     border: none;
+    width: 2rem;
+    height: 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 1rem;
+    }
 `
+export const Nome = styled.h4`
+    text-align: left;
+    font-size: 24px;
+    padding-left: 1.4rem;
+`
+
 export const Link = styled.a`
     display: flex;
     flex-direction: column;
     align-items: center;
     color: ${({ theme: { colors } }) => colors.text};
-    margin: 0.5rem auto;
+    margin: 0.2rem auto;
+    word-break: break-word;
+    text-align: center;
     &:hover {
         color: ${({ theme: { colors } }) => colors.text};
         opacity: 0.7;
@@ -38,3 +56,9 @@ export const Link = styled.a`
         margin: 0.5rem 0;
     }
 `
+export const Description = styled.p`
+    text-align: center;
+    font-size: 11px;
+    margin-bottom: 0.2rem;
+`
+export const Owner = styled.span``

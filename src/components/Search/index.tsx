@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../../assets/imgs/logoGitStar.svg'
 import Form from 'react-bootstrap/Form'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
@@ -7,9 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { GlobalStyle } from '../../assets/styles/global'
 
+import { useGitHub } from '../../contexts/githubContext'
+
 import * as S from './styled'
 
-const Search = () => {
+const Search = (): JSX.Element => {
+    const [nameSearch, setNameSearch] = useState('')
+    const { searchUser, notFind } = useGitHub()
+    const userNotFind = (): JSX.Element => {
+        return notFind ? <span>Usuário não encontrado</span> : <></>
+    }
+
     return (
         <>
             <GlobalStyle bg={0} />
@@ -20,12 +28,22 @@ const Search = () => {
                         placement="bottom"
                         overlay={<Tooltip id="pesquisa">Digite o nome do usuário que deseja pesquisar.</Tooltip>}>
                         <S.Label controlId="floatingInput" label="Digite um Nome" className="mt-3 pb-3">
-                            <Form.Control size="lg" type="text" placeholder="Digite um nome" />
-                            <S.Buttons variant="light">
+                            <Form.Control
+                                size="lg"
+                                type="text"
+                                placeholder="Digite um nome"
+                                value={nameSearch}
+                                onChange={(e) => setNameSearch(e.target.value)}
+                            />
+                            <S.Buttons
+                                variant="light"
+                                disabled={nameSearch === ''}
+                                onClick={() => searchUser(nameSearch)}>
                                 <FontAwesomeIcon icon={faSearch} />
                             </S.Buttons>
                         </S.Label>
                     </OverlayTrigger>
+                    {userNotFind()}
                 </S.Coluna>
             </S.Containers>
         </>

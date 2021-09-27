@@ -10,7 +10,7 @@ export const Containers = styled(Col)`
 
         padding: 0.25rem;
         background: ${({ theme: { colors } }) => colors.dourado};
-        border-radius: 0.25rem;
+        border-radius: 1rem;
         font-weight: bold;
     }
 `

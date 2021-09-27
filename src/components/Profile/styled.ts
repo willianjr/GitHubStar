@@ -1,26 +1,26 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import Button from 'react-bootstrap/Button'
 
 export const Containers = styled(Row)`
     display: flex;
     background: blue;
 `
-
 export const Coluna = styled(Col)`
     border-radius: 0.5rem;
 `
 export const ColunaLateral = styled(Col)``
 export const Perfil = styled.div`
     background: ${({ theme: { colors } }) => colors.background};
-    min-height: calc(100vh - 10px);
+    min-height: calc(100vh - 0.5rem);
+    height: calc(100% - 0px);
     border-radius: 0.5rem;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: flex-start;
+
+    align-items: flex-stretch;
 
     @media (max-width: 767px) {
         min-height: auto;
@@ -32,17 +32,19 @@ export const Logo = styled.img`
     margin: 0.5rem;
     padding: 0.5rem;
     width: 107px;
+    align-self: center;
 
     @media (max-width: 767px) {
         width: 60px;
     }
 `
-export const Avatar = styled.div`
-    margin: 0.5rem;
-    width: 165px;
-    height: 165px;
+export const Avatar = styled.img`
+    margin: 1rem;
+    max-width: 165px;
+    max-height: 165px;
     border-radius: 50%;
     background-color: ${({ theme: { colors } }) => colors.cinza_claro2};
+    align-self: center;
 
     @media (max-width: 767px) {
         width: 80px;
@@ -51,65 +53,68 @@ export const Avatar = styled.div`
 `
 export const Name = styled.h4`
     margin: 0.5rem;
-    width: 250px;
-    height: 50px;
+    min-height: 50px;
     border-bottom: 1px solid ${({ theme: { colors } }) => colors.cinza_claro2};
 
     text-align: center;
     font-size: 1.7rem;
+    line-height: 1.5rem;
+    font-weight: 700;
 `
 export const Statistics = styled(Row)`
     margin: 0 0.5rem 0.5rem;
     padding: 0 0 0.5rem;
-    width: 250px;
     border-bottom: 1px solid ${({ theme: { colors } }) => colors.cinza_claro2};
 `
 export const Bio = styled.p`
     margin: 0 0.5rem 0.5rem;
     padding: 0 0 0.5rem;
-    width: 250px;
+
     border-bottom: 1px solid ${({ theme: { colors } }) => colors.cinza_claro2};
     font-size: 0.8rem;
+    line-height: 1.4rem;
     text-align: center;
 `
-export const Local = styled.span`
-    margin: 0.05rem;
-    width: 250px;
+const InfoCss = css`
+    margin: 0.5rem;
 
+    color: ${({ theme: { colors } }) => colors.text};
     text-align: left;
     font-size: 1rem;
+    line-height: 1rem;
+    word-break: break-word;
+    padding-left: 25px;
+    position: relative;
+    font-weight: 500;
     > svg {
         margin-right: 0.5rem;
         color: ${({ theme: { colors } }) => colors.dourado};
+        position: absolute;
+        left: 0;
     }
 `
-export const Url = styled.a`
-    margin: 0.05rem;
-    width: 250px;
-    text-align: left;
-    font-size: 1rem;
-    color: #000;
+export const Info = styled.div`
+    ${InfoCss}
+`
+export const InfoLink = styled.a`
+    ${InfoCss}
+    text-decoration:none;
     &:hover {
         color: rgba(0, 0, 0, 0.6);
         cursor: pointer;
-    }
-    > svg {
-        margin-right: 0.5rem;
-        color: ${({ theme: { colors } }) => colors.dourado};
+        text-decoration: underline;
     }
 `
-export const Email = styled.a`
-    margin: 0.05rem;
-    width: 250px;
-    text-align: left;
-    font-size: 1rem;
-    color: #000;
-    &:hover {
-        color: rgba(0, 0, 0, 0.6);
-        cursor: pointer;
-    }
-    > svg {
-        margin-right: 0.5rem;
-        color: ${({ theme: { colors } }) => colors.dourado};
+export const Voltar = styled.button`
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    border-radius: 5rem;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 0;
+    border: none;
+    svg {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
     }
 `
