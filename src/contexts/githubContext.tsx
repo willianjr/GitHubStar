@@ -48,7 +48,7 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
         setLoad(true)
 
         const queryFavorite = favoriteRepositories.includes(id) ? queryRemoveStar : queryAddStar
-        console.log(favoriteRepositories, favoriteRepositories.includes(id), queryFavorite)
+        //console.log(favoriteRepositories, favoriteRepositories.includes(id), queryFavorite)
 
         api.post('', { query: `${queryFavorite('MDQ6VXNlcjY5NjUwOTY3', id)}` })
             .then(({ data }) => {
@@ -93,7 +93,7 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
         return user?.starredRepositories ? Object.values(user?.starredRepositories.nodes) : []
     }
     const getViewerRepositoriesStarred = (): NodesProps[] => {
-        console.log(viewer?.starredRepositories)
+        //console.log(viewer?.starredRepositories)
         return viewer?.starredRepositories ? Object.values(viewer?.starredRepositories.nodes) : []
     }
 
