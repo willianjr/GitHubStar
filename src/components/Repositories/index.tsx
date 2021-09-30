@@ -6,12 +6,11 @@ import { RepositoresProps, NodesProps } from '../../services/queries'
 
 const Repositories = (): JSX.Element => {
     const { getRepositoriesStarred } = useGitHub()
-    const repositories = getRepositoriesStarred()
-    const repositoriesList: NodesProps[] = repositories ? Object.values(repositories?.nodes) : []
+    const repositoriesList = getRepositoriesStarred()
 
     return (
         <>
-            <S.Retorno>Foram encontratos {repositories?.totalCount} repositórios favoritados.</S.Retorno>
+            <S.Retorno>Foram encontratos {repositoriesList?.length} repositórios favoritados.</S.Retorno>
             <S.Containers className={`g-4`}>
                 {repositoriesList.map((repositorie) => (
                     <Repositorie

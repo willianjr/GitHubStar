@@ -29,10 +29,22 @@ export declare interface QueryProps {
     repositories: RepositoresProps
     starredRepositories: RepositoresProps
 }
-
-export const query = (user: string): string => {
+export declare interface ViewerProps {
+    name: string
+    starredRepositories: RepositoresProps
+}
+export const querySearch = (user: string): string => {
     const queryBase = `
     {
+      viewer{
+          name
+          starredRepositories(last:100)
+          {
+            nodes{
+              id
+            }
+          }
+      }
       user(login: "${user}") {
           name
           avatarUrl
@@ -74,5 +86,32 @@ export const query = (user: string): string => {
       }
     }
     `
+    return queryBase
+}
+export const queryAddStar = (user: string, repositorie: string): string => {
+    const queryBase = `
+    mutation {
+      addStar(input: { clientMutationId:"${user}" starrableId:"${repositorie}" })
+      { clientMutationId
+        starrable{
+        id
+      }
+         }
+    }
+  `
+    return queryBase
+}
+
+export const queryRemoveStar = (user: string, repositorie: string): string => {
+    const queryBase = `
+    mutation {
+      removeStar(input: { clientMutationId:"${user}" starrableId:"${repositorie}" })
+      { clientMutationId
+        starrable{
+        id
+      }
+         }
+    }
+  `
     return queryBase
 }

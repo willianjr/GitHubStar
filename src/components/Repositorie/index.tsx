@@ -15,11 +15,16 @@ declare interface Props {
 }
 
 const Repositorie = ({ id, name, link, description, owner }: Props): JSX.Element => {
-    const { setTootleFavorite, favoriteRepositories } = useGitHub()
+    const { setToggleFavorite, favoriteRepositories } = useGitHub()
 
     return (
         <S.Containers md={4} sm={6}>
-            <S.Buttons variant="outline-dark" onClick={() => setTootleFavorite(id)}>
+            <S.Buttons
+                variant="outline-dark"
+                onClick={() => {
+                    console.log(`iddd:${id}`)
+                    setToggleFavorite(id)
+                }}>
                 <FontAwesomeIcon icon={favoriteRepositories.includes(id) ? faStar : faStartOutline} />
             </S.Buttons>
             <S.Cards>

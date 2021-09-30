@@ -1,6 +1,14 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 import api from '../services/api'
-import { query, QueryProps, RepositoresProps } from '../services/queries'
+import {
+    querySearch,
+    queryAddStar,
+    queryRemoveStar,
+    QueryProps,
+    ViewerProps,
+    NodesProps,
+    RepositoresProps,
+} from '../services/queries'
 
 interface GitHubContextData {
     loading: boolean
@@ -10,10 +18,11 @@ interface GitHubContextData {
     favoriteRepositories: string[]
     setLoading: (e: boolean) => void
     searchUser: (e: string) => void
-    setTootleFavorite: (e: string) => void
+    setToggleFavorite: (e: string) => void
     clearSearch: () => void
-    getRepositories: () => RepositoresProps | undefined
-    getRepositoriesStarred: () => RepositoresProps | undefined
+    getRepositories: () => NodesProps[]
+    getRepositoriesStarred: () => NodesProps[]
+    getViewerRepositoriesStarred: () => NodesProps[]
 }
 interface GitHubContextProviderProps {
     children: ReactNode
@@ -25,23 +34,43 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
     const [loading, setLoad] = useState(false)
     const [notFind, setNotFind] = useState<boolean | null>(null)
     const [user, setUser] = useState<QueryProps | null>(null)
+    const [viewer, setViewer] = useState<ViewerProps | null>(null)
     const [favoriteRepositories, setFavoriteRepositories] = useState<string[]>([])
+
+    useEffect(() => {
+        getViewerRepositoriesStarred().map((repositorie) => setFavoriteRepositories((old) => [...old, repositorie.id]))
+    }, [viewer])
 
     const setLoading = (state: boolean) => {
         setLoad(state)
     }
-    const setTootleFavorite = (id: string) => {
-        favoriteRepositories.includes(id)
-            ? setFavoriteRepositories(favoriteRepositories.filter((item) => item != id))
-            : setFavoriteRepositories((old) => [...old, id])
+    const setToggleFavorite = (id: string) => {
+        setLoad(true)
+
+        const queryFavorite = favoriteRepositories.includes(id) ? queryRemoveStar : queryAddStar
+        console.log(favoriteRepositories, favoriteRepositories.includes(id), queryFavorite)
+
+        api.post('', { query: `${queryFavorite('MDQ6VXNlcjY5NjUwOTY3', id)}` })
+            .then(({ data }) => {
+                favoriteRepositories.includes(id)
+                    ? setFavoriteRepositories(favoriteRepositories.filter((item) => item != id))
+                    : setFavoriteRepositories((old) => [...old, id])
+            })
+            .catch((error) => {
+                console.log(`error=${error}`)
+            })
+            .finally(() => {
+                setLoad(false)
+            })
     }
     const searchUser = (nameSearch: string): void => {
         setSearch(nameSearch)
         setLoad(true)
-        api.post('', { query: `${query(nameSearch)}` })
+        api.post('', { query: `${querySearch(nameSearch)}` })
             .then(({ data: { data } }) => {
                 if (data?.user) {
                     setUser(data?.user)
+                    setViewer(data?.viewer)
                     setNotFind(null)
                 } else {
                     setNotFind(true)
@@ -57,11 +86,15 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
     const clearSearch = (): void => {
         setUser(null)
     }
-    const getRepositories = () => {
-        return user?.repositories
+    const getRepositories = (): NodesProps[] => {
+        return user?.repositories ? Object.values(user?.repositories.nodes) : []
     }
-    const getRepositoriesStarred = () => {
-        return user?.starredRepositories
+    const getRepositoriesStarred = (): NodesProps[] => {
+        return user?.starredRepositories ? Object.values(user?.starredRepositories.nodes) : []
+    }
+    const getViewerRepositoriesStarred = (): NodesProps[] => {
+        console.log(viewer?.starredRepositories)
+        return viewer?.starredRepositories ? Object.values(viewer?.starredRepositories.nodes) : []
     }
 
     return (
@@ -72,12 +105,13 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
                 user,
                 notFind,
                 favoriteRepositories,
-                setTootleFavorite,
+                setToggleFavorite,
                 setLoading,
                 searchUser,
                 clearSearch,
                 getRepositories,
                 getRepositoriesStarred,
+                getViewerRepositoriesStarred,
             }}>
             {children}
         </GitHubContext.Provider>
