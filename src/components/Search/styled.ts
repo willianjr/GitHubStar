@@ -32,10 +32,10 @@ export const Buttons = styled(Button)`
     transition: 1s ease-in background-color;
 
     > :hover {
-        background-color: ${({ theme: { colors } }) => colors.cinza_claro2};
+        background-color: ${({ theme: { colors } }) => colors.silver_clear2};
     }
     > * {
-        color: ${({ theme: { colors } }) => colors.dourado};
+        color: ${({ theme: { colors } }) => colors.gold};
         font-size: 20px;
     }
 `

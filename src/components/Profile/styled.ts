@@ -43,7 +43,7 @@ export const Avatar = styled.img`
     max-width: 165px;
     max-height: 165px;
     border-radius: 50%;
-    background-color: ${({ theme: { colors } }) => colors.cinza_claro2};
+    background-color: ${({ theme: { colors } }) => colors.silver_clear2};
     align-self: center;
 
     @media (max-width: 767px) {
@@ -54,7 +54,7 @@ export const Avatar = styled.img`
 export const Name = styled.h4`
     margin: 0.5rem;
     min-height: 50px;
-    border-bottom: 1px solid ${({ theme: { colors } }) => colors.cinza_claro2};
+    border-bottom: 1px solid ${({ theme: { colors } }) => colors.silver_clear2};
 
     text-align: center;
     font-size: 1.7rem;
@@ -64,13 +64,15 @@ export const Name = styled.h4`
 export const Statistics = styled(Row)`
     margin: 0 0.5rem 0.5rem;
     padding: 0 0 0.5rem;
-    border-bottom: 1px solid ${({ theme: { colors } }) => colors.cinza_claro2};
+    border-bottom: 1px solid ${({ theme: { colors } }) => colors.silver_clear2};
+    display: flex;
+    align-items: stretch;
 `
 export const Bio = styled.p`
     margin: 0 0.5rem 0.5rem;
     padding: 0 0 0.5rem;
 
-    border-bottom: 1px solid ${({ theme: { colors } }) => colors.cinza_claro2};
+    border-bottom: 1px solid ${({ theme: { colors } }) => colors.silver_clear2};
     font-size: 0.8rem;
     line-height: 1.4rem;
     text-align: center;
@@ -88,7 +90,7 @@ const InfoCss = css`
     font-weight: 500;
     > svg {
         margin-right: 0.5rem;
-        color: ${({ theme: { colors } }) => colors.dourado};
+        color: ${({ theme: { colors } }) => colors.gold};
         position: absolute;
         left: 0;
     }

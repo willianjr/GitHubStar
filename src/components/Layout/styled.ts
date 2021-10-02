@@ -6,7 +6,7 @@ export const Containers = styled(Container)`
 `
 
 export const GoToTop = styled.button`
-    background: ${({ theme: { colors } }) => colors.background_dourado};
+    background: ${({ theme: { colors } }) => colors.background_gold};
     width: 4rem;
     height: 4rem;
     padding: 0.5rem;

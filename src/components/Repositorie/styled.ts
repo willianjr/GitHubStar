@@ -9,11 +9,18 @@ export const Containers = styled(Col)`
     align-items: stretch;
 `
 export const Cards = styled(Card)`
-    background-color: ${({ theme: { colors } }) => colors.dourado_semi};
+    background-color: ${({ theme: { colors } }) => colors.gold_semi};
     padding: 0.5rem 1rem;
-    border: none;
+    border: 1px solid ${({ theme: { colors } }) => colors.shadow_gold};
     align-items: flex-stretch;
     width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 25px ${({ theme: { colors } }) => colors.shadow_gold};
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: ${({ theme: { colors } }) => colors.gold_clear};
+    }
 `
 export const Buttons = styled(Button)`
     position: absolute;
@@ -33,7 +40,7 @@ export const Buttons = styled(Button)`
     }
 `
 export const Nome = styled.h4`
-    text-align: left;
+    text-align: center;
     font-size: 24px;
     padding-left: 1.4rem;
 `

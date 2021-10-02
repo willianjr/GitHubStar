@@ -7,5 +7,7 @@ export const Retorno = styled(Row)`
     margin-bottom: 1rem;
     flex-direction: column;
     align-items: center;
-    border-bottom: 1px solid ${({ theme: { colors } }) => colors.dourado_semi};
+    border-bottom: 1px solid ${({ theme: { colors } }) => colors.gold_semi};
+    text-align: center;
+    font-size: 0.8rem;
 `
