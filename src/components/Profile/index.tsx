@@ -14,7 +14,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../assets/imgs/logoGitStar.svg'
 import Row from 'react-bootstrap/Row'
-import { Statistic, Repositories } from '../index'
+import { Statistic, Repositories, AuthHeader } from '../index'
 
 import * as S from './styled'
 import { useGitHub } from '../../contexts/githubContext'
@@ -87,6 +87,7 @@ const Profile = (): JSX.Element => {
                     </S.Perfil>
                 </S.ColunaLateral>
                 <S.Coluna>
+                    <AuthHeader />
                     <Repositories />
                 </S.Coluna>
             </Row>

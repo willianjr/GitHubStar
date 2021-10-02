@@ -6,14 +6,14 @@ import Tooltip from 'react-bootstrap/Tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { GlobalStyle } from '../../assets/styles/global'
-
 import { useGitHub } from '../../contexts/githubContext'
+import { GitHubAuth } from '../index'
 
 import * as S from './styled'
 
 const Search = (): JSX.Element => {
     const [nameSearch, setNameSearch] = useState('')
-    const { searchUser, notFind } = useGitHub()
+    const { searchUser, notFind, isAutentication } = useGitHub()
     const userNotFind = (): JSX.Element => {
         return notFind ? <span>Usuário não encontrado</span> : <></>
     }
@@ -44,6 +44,7 @@ const Search = (): JSX.Element => {
                         </S.Label>
                     </OverlayTrigger>
                     {userNotFind()}
+                    <GitHubAuth />
                 </S.Coluna>
             </S.Containers>
         </>

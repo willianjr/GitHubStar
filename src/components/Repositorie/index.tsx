@@ -12,21 +12,25 @@ declare interface Props {
     link: string
     description: string
     owner?: string
+    className?: string
 }
 
-const Repositorie = ({ id, name, link, description, owner }: Props): JSX.Element => {
-    const { setToggleFavorite, favoriteRepositories } = useGitHub()
+const Repositorie = ({ id, name, link, description, owner, className }: Props): JSX.Element => {
+    const { setToggleFavorite, favoriteRepositories, isAutentication } = useGitHub()
 
     return (
-        <S.Containers md={4} sm={6}>
-            <S.Buttons
-                variant="outline-dark"
-                onClick={() => {
-                    //console.log(`iddd:${id}`)
-                    setToggleFavorite(id)
-                }}>
-                <FontAwesomeIcon icon={favoriteRepositories.includes(id) ? faStar : faStartOutline} />
-            </S.Buttons>
+        <S.Containers md={4} sm={6} className={className}>
+            {isAutentication && (
+                <S.Buttons
+                    variant="outline-dark"
+                    onClick={() => {
+                        //console.log(`iddd:${id}`)
+                        setToggleFavorite(id)
+                    }}>
+                    <FontAwesomeIcon icon={favoriteRepositories.includes(id) ? faStar : faStartOutline} />
+                </S.Buttons>
+            )}
+
             <S.Cards>
                 <S.Nome>{name}</S.Nome>
                 {description && (
