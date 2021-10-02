@@ -1,46 +1,91 @@
-# Getting Started with Create React App
+<p align="center">
+  <img src="_Layout/Marca/logoGitStar.svg" width="200" />
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">Um jeito fácil de buscar os repositórios estrelados de um usuário GitHub</p>
 
-## Available Scripts
 
-In the project directory, you can run:
+<p align="center">
+  <img src="_Layout/Preview/home.png" width="600" />
+</p>
+<p align="center">
+  <img src="_Layout/Preview/interna.png" width="600" />
+</p>
 
-### `yarn start`
+## LAYOUT
+Você pode visualizar o layout do projeto através do link:
+[Figma Layout](https://www.figma.com/file/XtVvMV4QJg4ueBH8PO9tE7/GitHubStart?node-id=2%3A40)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## LIVE DEMO
+Você pode visualizar o projeto rodando através do link:
+[githubstart-wrjr.netlify.app](https://githubstart-wrjr.netlify.app/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `yarn test`
+<p align="center">O Documento abaixo terá uma breve descrição do projeto</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+_O projeto foi criado com uma simples necessidade de buscar os repositórios estrelados de um usuário do GitHub e quando autenticado no GitHub é possível estrelar também os repositórios listados_
 
-### `yarn build`
+Foi desensolvido em ReactJS com TypeScript e na parte visual foi utilizado Styled Components com Bootstrap.<br/>
+Para a autenticação com o GitHub foi utilizado a biblioteca [Authentication do Firebase](https://firebase.google.com/docs/auth).<br/>
+Para a consulta aos repositórios foi utilizado a [API GraphQL do GitHub](https://docs.github.com/pt/graphql)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+***
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+>Você precisará do Node.js instalado no seu computador para construir este aplicativo.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Clone do Projeto
 
-### `yarn eject`
+Copiar o repositório basta efetuar o comando abaixo:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+git clone https://github.com/willianjr/GitHubStar.git
+$ cd GitHubStar
+```
+## Instalação das dependências
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Após copiar o projeto será necessário instalar as dependências do projeto para isso basta rodar o comando abaixo na pasta do projeto:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+$ NPM i
+```
+#### Tecnologias
+- Axios: "0.21.4",
+- Bootstrap: "5.1.1",
+- Firebase: "9.1.0",
+- Font Awesome: "4.7.0",
+- React: "17.0.2",
+- React Bootstrap: "2.0.0-beta.6",
+- React Lottie: "1.2.3",
+- Scrollreveal: "4.0.9",
+- Styled Components: "5.3.1",
+- Typescript: "4.1.2",
+> 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Configurações necessárias
 
-## Learn More
+O projeto utiliza duas APIs do GitHub GraphQl e do Firebase, com isso é necessário no arquivo de configuração *.env* preencher as informações necessárias.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- > [GITHUB GRAPHQL - DOCUMENTAÇÃO DE AUTENTICAÇÃO](https://docs.github.com/pt/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql)
+- > [FIREBASE - AUTHENTICATION](https://firebase.google.com/products/auth?gclid=CjwKCAjwhuCKBhADEiwA1HegObov2PqSUJ6YSZM3-JnfSW4EbZeuqEqngkFsgpggZbYqyUWcD4QBKBoCz_kQAvD_BwE&gclsrc=aw.ds)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+```.env
+#GIT HUB PERSON KEY
+REACT_APP_GIT_API_KEY=********
+
+#FIREBASE
+REACT_APP_API_KEY= *******
+REACT_APP_AUTH_DOMAIN= *******
+REACT_APP_PROJECT_ID= *******
+REACT_APP_STORAGE_BUCKET= *******
+REACT_APP_MESSAGING_SENDER_ID= *******
+REACT_APP_APP_ID= *******
+REACT_APP_APP_MEASUREMENT_ID= *******
+
+```
+
+## Rodando
+```
+$ NPM start
+```
