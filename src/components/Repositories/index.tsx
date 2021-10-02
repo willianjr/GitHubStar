@@ -8,7 +8,9 @@ import ScrollReveal from 'scrollreveal'
 const Repositories = (): JSX.Element => {
     const { getRepositoriesStarred } = useGitHub()
     const repositoriesList = getRepositoriesStarred()
-    ScrollReveal().reveal('.repo-reveal', { reset: false, delay: 100, scale: 0.5 })
+    useEffect(() => {
+        ScrollReveal().reveal('.repo-reveal', { reset: false, delay: 100, scale: 0.5, interval: 1, origin: 'left' })
+    }, [])
     return (
         <>
             <S.Retorno>Foram encontratos {repositoriesList?.length} repositórios favoritados.</S.Retorno>
