@@ -1,21 +1,25 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ThemeProvider } from 'styled-components'
+import { HashRouter } from 'react-router-dom'
 import { useGitHub } from './contexts/githubContext'
+import { Routes } from './Routes'
 
 import theme from './assets/styles/theme'
 
-import { Layout, Loading, Search, Profile } from './components'
+import { Layout, Loading } from './components'
 
 function App(): JSX.Element {
-    const { loading, user } = useGitHub()
+    const { loading } = useGitHub()
 
     return (
         <ThemeProvider theme={theme}>
-            <Layout>
-                {loading && <Loading />}
-                {user ? <Profile /> : <Search />}
-            </Layout>
+            <HashRouter>
+                <Layout>
+                    {loading && <Loading />}
+                    <Routes />
+                </Layout>
+            </HashRouter>
         </ThemeProvider>
     )
 }

@@ -19,6 +19,8 @@ interface GitHubContextData {
     getRepositories: () => NodesProps[]
     getRepositoriesStarred: () => NodesProps[]
     getViewerRepositoriesStarred: () => NodesProps[]
+    getFollowers: () => NodesProps[]
+    getFollowing: () => NodesProps[]
     signOutGit: () => void
 }
 interface GitHubContextProviderProps {
@@ -37,9 +39,8 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
     const [gitHubUser, setGitHubUser] = useState<User>()
 
     useEffect(() => {
-        console.log('gitauth', getGitAuth())
+        getGitAuth()
     }, [])
-
     useEffect(() => {
         getViewerRepositoriesStarred().map((repositorie) => setFavoriteRepositories((old) => [...old, repositorie.id]))
     }, [viewer])
@@ -75,6 +76,12 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
     }
     const getRepositories = (): NodesProps[] => {
         return user?.repositories ? Object.values(user?.repositories.nodes) : []
+    }
+    const getFollowers = (): NodesProps[] => {
+        return user?.followers ? Object.values(user?.followers.nodes) : []
+    }
+    const getFollowing = (): NodesProps[] => {
+        return user?.followers ? Object.values(user?.following.nodes) : []
     }
     const getRepositoriesStarred = (): NodesProps[] => {
         return user?.starredRepositories ? Object.values(user?.starredRepositories.nodes) : []
@@ -141,6 +148,8 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
         getRepositories,
         getRepositoriesStarred,
         getViewerRepositoriesStarred,
+        getFollowers,
+        getFollowing,
         signOutGit,
     }
     return <GitHubContext.Provider value={gitHubContextData}>{children}</GitHubContext.Provider>

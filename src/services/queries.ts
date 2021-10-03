@@ -7,11 +7,16 @@ export declare interface NodesProps {
     url: string
     description: string
     owner?: OwnerProps
+    avatarUrl?: string
 }
 declare interface OwnerProps {
     login: string
 }
 export declare interface RepositoresProps {
+    totalCount: number
+    nodes: NodesProps
+}
+export declare interface FollowersProps {
     totalCount: number
     nodes: NodesProps
 }
@@ -24,8 +29,8 @@ export declare interface QueryProps {
     websiteUrl: string
     url: string
     gists: TotalCount
-    followers: TotalCount
-    following: TotalCount
+    followers: FollowersProps
+    following: FollowersProps
     repositories: RepositoresProps
     starredRepositories: RepositoresProps
 }
@@ -56,11 +61,25 @@ export const querySearch = (user: string): string => {
           gists {
             totalCount
           }
-          followers {
+          followers(last:100) {
             totalCount
+            nodes{
+              name
+              login
+              avatarUrl
+              id
+              url
+            }
           }
-          following {
+          following(last:100) {
             totalCount
+            nodes{
+              name
+              login
+              avatarUrl
+              id
+              url
+            }
           }
           repositories(last: 100) {
           totalCount

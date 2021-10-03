@@ -2,8 +2,9 @@
   <img src="_Layout/Marca/logoGitStar.svg" width="200" />
 </p>
 
-<p align="center">Um jeito fácil de buscar os repositórios estrelados de um usuário GitHub</p>
+<p align="center" style="font-weight:bold">Um jeito fácil de buscar os repositórios estrelados de um usuário GitHub</p>
 
+***
 
 <p align="center">
   <img src="_Layout/Preview/home.png" width="600" />
@@ -11,10 +12,18 @@
 <p align="center">
   <img src="_Layout/Preview/interna.png" width="600" />
 </p>
+<p align="center">
+  <img src="_Layout/Preview/follower.png" width="600" />
+</p>
+<p align="center">
+  <img src="_Layout/Preview/erro404.png" width="600" />
+</p>
 
 ## LAYOUT
 Você pode visualizar o layout do projeto através do link:
 [Figma Layout](https://www.figma.com/file/XtVvMV4QJg4ueBH8PO9tE7/GitHubStart?node-id=2%3A40)
+
+---
 
 ## LIVE DEMO
 Você pode visualizar o projeto rodando através do link:
@@ -55,6 +64,7 @@ $ NPM i
 - Firebase: "9.1.0",
 - Font Awesome: "4.7.0",
 - React: "17.0.2",
+- React Router Dom: "5.3.0",
 - React Bootstrap: "2.0.0-beta.6",
 - React Lottie: "1.2.3",
 - Scrollreveal: "4.0.9",
@@ -89,3 +99,13 @@ REACT_APP_APP_MEASUREMENT_ID= *******
 ```
 $ NPM start
 ```
+
+## Recursos
+
+- Buscar usuários do GitHub
+- Visualizar Repositórios
+- Visualizar Repositórios Estrelados
+- Visualizar Usuários Seguidores
+- Visualizar Usuários que Seguem
+- Autenticação com GitHub
+- Favoritar repositórios

@@ -1,12 +1,5 @@
 import { firebase } from './firebase'
-import {
-    getAuth,
-    signInWithPopup,
-    signInWithRedirect,
-    getRedirectResult,
-    GithubAuthProvider,
-    signOut,
-} from 'firebase/auth'
+import { getAuth, signInWithPopup, signInWithRedirect, GithubAuthProvider } from 'firebase/auth'
 
 //firebase initia
 firebase
@@ -45,5 +38,3 @@ export const getIdUser = (): string | null => {
     const auth = getAuth()
     return auth.currentUser ? auth.currentUser?.providerData[0].uid : null
 }
-
-//signInWithRedirect(auth, provider)

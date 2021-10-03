@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Col from 'react-bootstrap/Col'
 
 export const Containers = styled(Col)`
-    > div {
+    > div a {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -17,7 +17,11 @@ export const Containers = styled(Col)`
         text-align: center;
         letter-spacing: -1px;
         height: 100%;
-
+        color: ${({ theme: { colors } }) => colors.black};
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
         > svg {
             margin: 0.1rem auto;
         }

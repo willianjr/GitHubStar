@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import logo from '../../assets/imgs/logoGitStar.svg'
 import Form from 'react-bootstrap/Form'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
@@ -7,16 +8,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { GlobalStyle } from '../../assets/styles/global'
 import { useGitHub } from '../../contexts/githubContext'
-import { GitHubAuth } from '../index'
+import { GitHubAuth } from '../../components'
 
 import * as S from './styled'
 
 const Search = (): JSX.Element => {
+    const history = useHistory()
     const [nameSearch, setNameSearch] = useState('')
-    const { searchUser, notFind, isAutentication } = useGitHub()
+    const { searchUser, notFind, isAutentication, user } = useGitHub()
     const userNotFind = (): JSX.Element => {
         return notFind ? <span>Usuário não encontrado</span> : <></>
     }
+    useEffect(() => {
+        user?.name && history.push('/starreded')
+    }, [user])
 
     return (
         <>
