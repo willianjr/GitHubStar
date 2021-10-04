@@ -27,7 +27,7 @@ Você pode visualizar o layout do projeto através do link:
 
 ## LIVE DEMO
 Você pode visualizar o projeto rodando através do link:
-[githubstart-wrjr.netlify.app](https://githubstart-wrjr.netlify.app/)
+[githubstar-wrjr.netlify.app](https://githubstar-wrjr.netlify.app/)<br/>
 [githubstar-wrjr.web.app](https://githubstar-wrjr.web.app/)
 
 ---
