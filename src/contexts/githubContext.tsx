@@ -112,8 +112,12 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
     }
     const getGitAuth = (): void => {
         setLoad(true)
-        getRedirectResult(getAuth())
+        const auth = getAuth()
+        //console.log(auth)
+        getRedirectResult(auth)
             .then((result) => {
+                //console.log(result)
+                //console.log(result?.user)
                 setGitHubUser(result?.user)
             })
             .catch((error) => {
