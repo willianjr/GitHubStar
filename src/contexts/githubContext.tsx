@@ -1,7 +1,7 @@
-import { getAuth, getRedirectResult, GithubAuthProvider, signOut, UserCredential, User } from 'firebase/auth'
+import { getAuth, getRedirectResult, GithubAuthProvider, signOut, User } from 'firebase/auth'
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 import api from '../services/api'
-import { getIdUser } from '../services/loginGitHub'
+import { firebase } from '../services/firebase'
 import { querySearch, queryAddStar, queryRemoveStar, QueryProps, ViewerProps, NodesProps } from '../services/queries'
 
 interface GitHubContextData {
@@ -45,6 +45,7 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
         getViewerRepositoriesStarred().map((repositorie) => setFavoriteRepositories((old) => [...old, repositorie.id]))
     }, [viewer])
     useEffect(() => {
+        //console.log('auth', gitHubUser)
         setAutentication(gitHubUser?.uid ? true : false)
     }, [gitHubUser])
 
@@ -110,28 +111,52 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
                 })
         }
     }
+
+    async function getGitAuthAsync() {
+        const auth = await getAuth()
+        const result = await getRedirectResult(auth)
+        if (result) {
+            //console.log('user', result)
+            setGitHubUser(result?.user)
+            setAutentication(result?.user.uid ? true : false)
+        }
+        //console.log('USSS', user)
+    }
     const getGitAuth = (): void => {
         setLoad(true)
+        getGitAuthAsync()
         const auth = getAuth()
         //console.log(auth)
-        getRedirectResult(auth)
-            .then((result) => {
-                //console.log(result)
-                //console.log(result?.user)
-                setGitHubUser(result?.user)
-            })
-            .catch((error) => {
-                console.log('Error:', error)
-                // Handle Errors here.
-                const errorCode = error.code
-                const errorMessage = error.message
-                // The email of the user's account used.
-                const email = error.email
-                // The AuthCredential type that was used.
-                const credential = GithubAuthProvider.credentialFromError(error)
-                // ...
-            })
-            .finally(() => setLoad(false))
+        auth.onAuthStateChanged((user) => {
+            //console.log('change', user)
+            if (user) {
+                //console.log('user', user)
+                setGitHubUser(user)
+                setAutentication(user?.uid ? true : false)
+                setLoad(false)
+            }
+            if (!isAutentication) {
+                //console.log('redirect', auth)
+                getRedirectResult(auth)
+                    .then((result) => {
+                        //console.log(result)
+                        //console.log(result?.user)
+                        setGitHubUser(result?.user)
+                    })
+                    .catch((error) => {
+                        console.log('Error:', error)
+                        // Handle Errors here.
+                        const errorCode = error.code
+                        const errorMessage = error.message
+                        // The email of the user's account used.
+                        const email = error.email
+                        // The AuthCredential type that was used.
+                        const credential = GithubAuthProvider.credentialFromError(error)
+                        // ...
+                    })
+                    .finally(() => setLoad(false))
+            }
+        })
     }
     const signOutGit = (): void => {
         signOut(getAuth()).then(() => setAutentication(false))

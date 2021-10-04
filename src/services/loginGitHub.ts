@@ -16,8 +16,7 @@ export const authWithPopup = (): void => {
 
             // The signed-in user info.
             const user = result.user
-
-            console.log(user)
+            console.log('user', user, result)
             // ...
         })
         .catch((error) => {
