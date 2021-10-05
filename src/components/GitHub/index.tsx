@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { authWithPopup, authWithRedirect } from '../../services/loginGitHub'
+import LoginGitHub from '../../services/loginGitHub'
 import { useGitHub } from '../../contexts/githubContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,7 +10,7 @@ import * as S from './styled'
 const ButtonAuth = (): JSX.Element => {
     const { isAutentication, signOutGit, gitHubUser } = useGitHub()
     function handleAut(): void {
-        isAutentication ? signOutGit() : authWithRedirect()
+        isAutentication ? signOutGit() : LoginGitHub.authWithRedirect()
     }
 
     return (
@@ -29,4 +29,4 @@ const ButtonAuth = (): JSX.Element => {
     )
 }
 
-export default memo(ButtonAuth)
+export default ButtonAuth

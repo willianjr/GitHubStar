@@ -1,7 +1,7 @@
-import { getAuth, getRedirectResult, GithubAuthProvider, signOut, User } from 'firebase/auth'
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react'
-import api from '../services/api'
 import { firebase } from '../services/firebase'
+import { getAuth, getRedirectResult, GithubAuthProvider, signOut, User } from 'firebase/auth'
+import api from '../services/api'
 import { querySearch, queryAddStar, queryRemoveStar, QueryProps, ViewerProps, NodesProps } from '../services/queries'
 
 interface GitHubContextData {
@@ -37,15 +37,15 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
     const [favoriteRepositories, setFavoriteRepositories] = useState<string[]>([])
     const [isAutentication, setAutentication] = useState<boolean>(false)
     const [gitHubUser, setGitHubUser] = useState<User>()
-
+    firebase
     useEffect(() => {
         getGitAuth()
+        //console.log('x', x)
     }, [])
     useEffect(() => {
         getViewerRepositoriesStarred().map((repositorie) => setFavoriteRepositories((old) => [...old, repositorie.id]))
     }, [viewer])
     useEffect(() => {
-        //console.log('auth', gitHubUser)
         setAutentication(gitHubUser?.uid ? true : false)
     }, [gitHubUser])
 
@@ -113,35 +113,28 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
     }
 
     async function getGitAuthAsync() {
-        const auth = await getAuth()
+        const auth = getAuth()
         const result = await getRedirectResult(auth)
         if (result) {
-            //console.log('user', result)
             setGitHubUser(result?.user)
             setAutentication(result?.user.uid ? true : false)
         }
-        //console.log('USSS', user)
     }
-    const getGitAuth = (): void => {
+    async function getGitAuth() {
         setLoad(true)
-        getGitAuthAsync()
+
         const auth = getAuth()
-        //console.log(auth)
+
         auth.onAuthStateChanged((user) => {
-            //console.log('change', user)
             if (user) {
-                //console.log('user', user)
                 setGitHubUser(user)
                 setAutentication(user?.uid ? true : false)
                 setLoad(false)
             }
             if (!isAutentication) {
-                //console.log('redirect', auth)
                 getRedirectResult(auth)
                     .then((result) => {
-                        //console.log(result)
-                        //console.log(result?.user)
-                        setGitHubUser(result?.user)
+                        result && setGitHubUser(result?.user)
                     })
                     .catch((error) => {
                         console.log('Error:', error)
@@ -157,6 +150,7 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
                     .finally(() => setLoad(false))
             }
         })
+        //!isAutentication && getGitAuthAsync()
     }
     const signOutGit = (): void => {
         signOut(getAuth()).then(() => setAutentication(false))
