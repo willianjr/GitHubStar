@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react'
-import { firebase } from '../services/firebase'
+import { useHistory } from 'react-router'
+
 import { getAuth, getRedirectResult, GithubAuthProvider, signOut, User } from 'firebase/auth'
-import api from '../services/api'
 import { querySearch, queryAddStar, queryRemoveStar, QueryProps, ViewerProps, NodesProps } from '../services/queries'
+import api from '../services/api'
 
 interface GitHubContextData {
     loading: boolean
@@ -36,11 +37,10 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
     const [viewer, setViewer] = useState<ViewerProps | null>(null)
     const [favoriteRepositories, setFavoriteRepositories] = useState<string[]>([])
     const [isAutentication, setAutentication] = useState<boolean>(false)
-    const [gitHubUser, setGitHubUser] = useState<User>()
-    firebase
+    const [gitHubUser, setGitHubUser] = useState<any>()
+
     useEffect(() => {
         getGitAuth()
-        //console.log('x', x)
     }, [])
     useEffect(() => {
         getViewerRepositoriesStarred().map((repositorie) => setFavoriteRepositories((old) => [...old, repositorie.id]))
@@ -150,12 +150,15 @@ export function GithubContextProvider({ children }: GitHubContextProviderProps):
                     .finally(() => setLoad(false))
             }
         })
-        //!isAutentication && getGitAuthAsync()
+        !isAutentication && getGitAuthAsync()
     }
     const signOutGit = (): void => {
         signOut(getAuth()).then(() => setAutentication(false))
     }
-
+    const redirectToRouter = (userSearch: string): void => {
+        const history = useHistory()
+        history.push(`/search/${userSearch}`)
+    }
     const gitHubContextData: GitHubContextData = {
         loading,
         search,

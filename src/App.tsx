@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ThemeProvider } from 'styled-components'
 import { HashRouter } from 'react-router-dom'

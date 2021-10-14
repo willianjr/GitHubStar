@@ -25,6 +25,13 @@ const routes: IRoute[] = [
         auth: false,
     },
     {
+        path: '/:search/starreded',
+        name: 'Search',
+        component: StarrededPage,
+        exact: true,
+        auth: false,
+    },
+    {
         path: '/repositories',
         name: 'Repositories',
         component: RepositoriesPage,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import logo from '../../assets/imgs/logoGitStar.svg'
 import Form from 'react-bootstrap/Form'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
@@ -15,12 +15,15 @@ import * as S from './styled'
 const Search = (): JSX.Element => {
     const history = useHistory()
     const [nameSearch, setNameSearch] = useState('')
-    const { searchUser, notFind, isAutentication, user } = useGitHub()
+    const { searchUser, notFind, isAutentication, user, search } = useGitHub()
     const userNotFind = (): JSX.Element => {
         return notFind ? <span>Usuário não encontrado</span> : <></>
     }
+    const handleSearch = (searchName: string): void => {
+        searchUser(searchName)
+    }
     useEffect(() => {
-        user?.name && history.push('/starreded')
+        user?.name && history.push(`${search}/starreded`)
     }, [user])
 
     return (
@@ -43,7 +46,7 @@ const Search = (): JSX.Element => {
                             <S.Buttons
                                 variant="light"
                                 disabled={nameSearch === ''}
-                                onClick={() => searchUser(nameSearch)}>
+                                onClick={() => handleSearch(nameSearch)}>
                                 <FontAwesomeIcon icon={faSearch} />
                             </S.Buttons>
                         </S.Label>
